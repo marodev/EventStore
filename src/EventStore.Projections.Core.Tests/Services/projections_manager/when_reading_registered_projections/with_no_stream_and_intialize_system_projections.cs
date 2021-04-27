@@ -6,12 +6,14 @@ using EventStore.Projections.Core.Services.Processing;
 using System.Collections.Generic;
 using System.Collections;
 using EventStore.Common.Utils;
+using EventStore.Core.Tests;
 using EventStore.Projections.Core.Services;
 using EventStore.Projections.Core.Messages;
 
 namespace EventStore.Projections.Core.Tests.Services.projections_manager.when_reading_registered_projections {
-	[TestFixture, TestFixtureSource(typeof(SystemProjectionNames))]
-	public class with_no_stream_and_intialize_system_projections : TestFixtureWithProjectionCoreAndManagementServices {
+	[TestFixture(typeof(LogFormat.V2), typeof(string), typeof(SystemProjectionNames))]
+	[TestFixture(typeof(LogFormat.V3), typeof(long), typeof(SystemProjectionNames))]
+	public class with_no_stream_and_intialize_system_projections<TLogFormat, TStreamId> : TestFixtureWithProjectionCoreAndManagementServices<TLogFormat, TStreamId> {
 		private string _systemProjectionName;
 
 		public with_no_stream_and_intialize_system_projections(string projectionName) {
