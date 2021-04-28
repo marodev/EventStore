@@ -51,6 +51,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStore.LogV3.Tests", "E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStore.LogCommon", "EventStore.LogCommon\EventStore.LogCommon.csproj", "{B1185D46-45AE-49DD-99BF-602B9359BACF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStore.Projections.Core.Javascript.Tests", "EventStore.Projections.Core.Javascript.Tests\EventStore.Projections.Core.Javascript.Tests.csproj", "{1826D544-16E6-460F-A8F2-1D56B5041AE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -113,10 +115,10 @@ Global
 		{647867C2-54FA-4C2C-9BCD-7F85A4A8F787}.Debug|x64.Build.0 = Debug|x64
 		{647867C2-54FA-4C2C-9BCD-7F85A4A8F787}.Release|x64.ActiveCfg = Release|x64
 		{647867C2-54FA-4C2C-9BCD-7F85A4A8F787}.Release|x64.Build.0 = Release|x64
-		{066B6514-86A0-41D8-BB6A-D9B05141D026}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{066B6514-86A0-41D8-BB6A-D9B05141D026}.Debug|x64.Build.0 = Debug|Any CPU
-		{066B6514-86A0-41D8-BB6A-D9B05141D026}.Release|x64.ActiveCfg = Release|Any CPU
-		{066B6514-86A0-41D8-BB6A-D9B05141D026}.Release|x64.Build.0 = Release|Any CPU
+		{066B6514-86A0-41D8-BB6A-D9B05141D026}.Debug|x64.ActiveCfg = Debug|x64
+		{066B6514-86A0-41D8-BB6A-D9B05141D026}.Debug|x64.Build.0 = Debug|x64
+		{066B6514-86A0-41D8-BB6A-D9B05141D026}.Release|x64.ActiveCfg = Release|x64
+		{066B6514-86A0-41D8-BB6A-D9B05141D026}.Release|x64.Build.0 = Release|x64
 		{D8066904-C17E-46AF-98D1-ACBDB2A2F25F}.Debug|x64.ActiveCfg = Debug|x64
 		{D8066904-C17E-46AF-98D1-ACBDB2A2F25F}.Debug|x64.Build.0 = Debug|x64
 		{D8066904-C17E-46AF-98D1-ACBDB2A2F25F}.Release|x64.ActiveCfg = Release|x64
@@ -133,6 +135,10 @@ Global
 		{B1185D46-45AE-49DD-99BF-602B9359BACF}.Debug|x64.Build.0 = Debug|x64
 		{B1185D46-45AE-49DD-99BF-602B9359BACF}.Release|x64.ActiveCfg = Release|x64
 		{B1185D46-45AE-49DD-99BF-602B9359BACF}.Release|x64.Build.0 = Release|x64
+		{1826D544-16E6-460F-A8F2-1D56B5041AE7}.Debug|x64.ActiveCfg = Debug|x64
+		{1826D544-16E6-460F-A8F2-1D56B5041AE7}.Debug|x64.Build.0 = Debug|x64
+		{1826D544-16E6-460F-A8F2-1D56B5041AE7}.Release|x64.ActiveCfg = Release|x64
+		{1826D544-16E6-460F-A8F2-1D56B5041AE7}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

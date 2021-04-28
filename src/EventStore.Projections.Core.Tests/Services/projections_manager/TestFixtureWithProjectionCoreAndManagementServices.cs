@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using EventStore.Common;
 using EventStore.Common.Options;
 using EventStore.Core.Bus;
 using EventStore.Core.Helpers;
 using EventStore.Core.Messages;
 using EventStore.Core.Messaging;
 using EventStore.Core.Services.AwakeReaderService;
+using EventStore.Core.Services.Monitoring.Stats;
 using EventStore.Core.Tests.Helpers;
 using EventStore.Core.TransactionLog.Checkpoint;
 using EventStore.Core.Util;
@@ -20,6 +23,40 @@ using TestFixtureWithExistingEvents =
 	EventStore.Projections.Core.Tests.Services.core_projection.TestFixtureWithExistingEvents;
 
 namespace EventStore.Projections.Core.Tests.Services.projections_manager {
+	class GuardBusToTriggerFixingIfUsed : IQueuedHandler, IBus, IPublisher {
+		public void Handle(Message message) {
+			throw new NotImplementedException();
+		}
+
+		public void Publish(Message message) {
+			throw new NotImplementedException();
+		}
+
+		public string Name { get; }
+		public Task Start() {
+			throw new NotImplementedException();
+		}
+
+		public void Stop() {
+			throw new NotImplementedException();
+		}
+
+		public void RequestStop() {
+			throw new NotImplementedException();
+		}
+
+		public QueueStats GetStatistics() {
+			throw new NotImplementedException();
+		}
+
+		public void Subscribe<T>(IHandle<T> handler) where T : Message {
+			throw new NotImplementedException();
+		}
+
+		public void Unsubscribe<T>(IHandle<T> handler) where T : Message {
+			throw new NotImplementedException();
+		}
+	}
 	public abstract class TestFixtureWithProjectionCoreAndManagementServices : TestFixtureWithExistingEvents {
 		protected ProjectionManager _manager;
 		protected ProjectionManagerMessageDispatcher _managerMessageDispatcher;
@@ -155,6 +192,9 @@ namespace EventStore.Projections.Core.Tests.Services.projections_manager {
 //                ioDispatcher,
 //                workerId.ToString("N"));
 
+			var guardBus = new GuardBusToTriggerFixingIfUsed();
+			var configuration = new ProjectionsStandardComponents(1, ProjectionType.All, guardBus, guardBus, guardBus, true,
+				JavascriptProjectionRuntime.Interpreted, 500, 250);
 			var coreService = new ProjectionCoreService(
 				workerId,
 				inputQueue,
@@ -162,7 +202,7 @@ namespace EventStore.Projections.Core.Tests.Services.projections_manager {
 				_subscriptionDispatcher,
 				_timeProvider,
 				ioDispatcher,
-				timeoutScheduler);
+				timeoutScheduler, configuration);
 
 			bus.Subscribe<CoreProjectionManagementMessage.CreateAndPrepare>(coreService);
 			bus.Subscribe<CoreProjectionManagementMessage.CreatePrepared>(coreService);
