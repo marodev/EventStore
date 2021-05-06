@@ -143,6 +143,10 @@ namespace EventStore.ClusterNode {
 												});
 											}
 										});
+									server.Limits.MaxConcurrentConnections = options.Grpc.KestrelMaxConcurrentConnections;
+									server.Limits.MaxConcurrentUpgradedConnections = options.Grpc.KestrelMaxConcurrentUpgradedConnections;
+									server.Limits.Http2.InitialConnectionWindowSize = options.Grpc.KestrelInitialConnectionWindowSize;
+									server.Limits.Http2.InitialStreamWindowSize = options.Grpc.KestrelInitialStreamWindowSize;
 								})
 								.ConfigureServices(services => hostedService.Node.Startup.ConfigureServices(services))
 								.Configure(hostedService.Node.Startup.Configure))

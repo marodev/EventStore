@@ -489,6 +489,15 @@ namespace EventStore.Core {
 				KeepAliveInterval = configurationRoot.GetValue<int>(nameof(KeepAliveInterval)),
 				KeepAliveTimeout = configurationRoot.GetValue<int>(nameof(KeepAliveTimeout))
 			};
+
+			[Description("Sets the maximum number of open connections.")]
+			public long? KestrelMaxConcurrentConnections = 5_000;
+			[Description("Sets the maximum number of open, upgraded connections. An upgraded connection is one that has been switched from HTTP to another protocol, such as WebSockets.")]
+			public long? KestrelMaxConcurrentUpgradedConnections = 5_000;
+			[Description("Sets how much request body data the server is willing to receive and buffer at a time aggregated across all requests (streams) per connection. Note requests are also limited by InitialStreamWindowSize.")]
+			public int KestrelInitialConnectionWindowSize = 131072 * 1024;
+			[Description("Sets how much request body data the server is willing to receive and buffer at a time per stream. Note connections are also limited by InitialConnectionWindowSize.")]
+			public int KestrelInitialStreamWindowSize = 98304 * 1024;
 		}
 
 		[Description("Interface Options")]
