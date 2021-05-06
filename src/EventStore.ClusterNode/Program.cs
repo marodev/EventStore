@@ -5,13 +5,11 @@ using EventStore.Common.Log;
 using EventStore.Common.Utils;
 using EventStore.Core.Services.Transport.Http;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Server.Kestrel.Https;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Core;
 
 namespace EventStore.ClusterNode {
 	internal static class Program {
@@ -89,6 +87,10 @@ namespace EventStore.ClusterNode {
 									});
 								}
 							});
+						server.Limits.MaxConcurrentConnections = hostedService.Options.KestrelMaxConcurrentConnections;
+						server.Limits.MaxConcurrentUpgradedConnections = hostedService.Options.KestrelMaxConcurrentUpgradedConnections;
+						server.Limits.Http2.InitialConnectionWindowSize = hostedService.Options.KestrelInitialConnectionWindowSize;
+						server.Limits.Http2.InitialStreamWindowSize = hostedService.Options.KestrelInitialStreamWindowSize;
 					})
 					.ConfigureServices(services => hostedService.Node.Startup.ConfigureServices(services))
 					.Configure(hostedService.Node.Startup.Configure));

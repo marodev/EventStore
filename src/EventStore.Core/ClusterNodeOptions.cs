@@ -330,6 +330,18 @@ namespace EventStore.Core {
 		[ArgDescription(Opts.KeepAliveTimeoutDescr, Opts.GrpcGroup)]
 		public int KeepAliveTimeout { get; set; }
 		
+		[ArgDescription(Opts.KestrelMaxConcurrentConnectionsDescr, Opts.GrpcGroup)]
+		public long? KestrelMaxConcurrentConnections { get; set; }
+
+		[ArgDescription(Opts.KestrelMaxConcurrentUpgradedConnectionsDescr, Opts.GrpcGroup)]
+		public long? KestrelMaxConcurrentUpgradedConnections { get; set; }
+
+		[ArgDescription(Opts.KestrelInitialConnectionWindowSizeDescr, Opts.GrpcGroup)]
+		public int KestrelInitialConnectionWindowSize { get; set; }
+
+		[ArgDescription(Opts.KestrelInitialStreamWindowSizeDescr, Opts.GrpcGroup)]
+		public int KestrelInitialStreamWindowSize { get; set; }
+
 		public ClusterNodeOptions() {
 			Config = "";
 			Help = Opts.ShowHelpDefault;
@@ -459,6 +471,11 @@ namespace EventStore.Core {
 
 			KeepAliveInterval = Opts.KeepAliveIntervalDefault;
 			KeepAliveTimeout = Opts.KeepAliveTimeoutDefault;
+
+			KestrelMaxConcurrentConnections = Opts.KestrelMaxConcurrentConnectionsDefault;
+			KestrelMaxConcurrentUpgradedConnections = Opts.KestrelMaxConcurrentUpgradedConnectionsDefault;
+			KestrelInitialConnectionWindowSize = Opts.KestrelInitialConnectionWindowSizeDefault;
+			KestrelInitialStreamWindowSize = Opts.KestrelInitialStreamWindowSizeDefault;
 
 			WriteStatsToDb = Opts.WriteStatsToDbDefault;
 			MaxTruncation = Opts.MaxTruncationDefault;

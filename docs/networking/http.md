@@ -63,3 +63,59 @@ After having pinged for keepalive check, the server waits for a duration of `kee
 **Default**: `10000`
 
 As a general rule, we do not recommend putting EventStoreDB behind a load balancer. However, if you are using it and want to benefit from the Keepalive feature, then you should make sure if the compatible settings are properly set. Some load balancers may also override the Keepalive settings. Most of them require setting the idle timeout larger/longer than the `keepAliveTimeout`. We suggest checking the load balancer documentation before using Keepalive pings. 
+
+## Kestrel Settings
+
+It's generally not expected that you'll need to update the kestrel configuration that EventStoreDB has set by default, but it's good to know that you can update the following settings if needed.
+
+### MaxConcurrentConnections
+
+Sets the maximum number of open connections. See the docs [here](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.server.kestrel.core.kestrelserverlimits.maxconcurrentconnections?view=aspnetcore-5.0).
+
+| Format               | Syntax |
+| :------------------- | :----- |
+| Command line         | `--kestrel-max-concurrent-connections` |
+| YAML                 | `KestrelMaxConcurrentConnections` |
+| Environment variable | `KESTREL_MAX_CONCURRENT_CONNECTIONS` |
+
+**Default**: `5000`
+
+### MaxConcurrentUpgradedConnections
+
+Sets the maximum number of open, upgraded connections. An upgraded connection is one that has been switched from HTTP to another protocol, such as WebSockets. See the docs [here](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.server.kestrel.core.kestrelserverlimits.maxconcurrentupgradedconnections?view=aspnetcore-5.0).
+
+| Format               | Syntax |
+| :------------------- | :----- |
+| Command line         | `--kestrel-max-concurrent-upgraded-connections` |
+| YAML                 | `KestrelMaxConcurrentUpgradedConnections` |
+| Environment variable | `KESTREL_MAX_CONCURRENT_UPGRADED_CONNECTIONS` |
+
+**Default**: `5000`
+
+### Http2 InitialConnectionWindowSize
+
+Sets how much request body data the server is willing to receive and buffer at a time aggregated across all requests (streams) per connection. Note requests are also limited by `KestrelInitialStreamWindowSize`
+
+The value must be greater than or equal to 65,535 and less than 2^31. See the docs [here](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.server.kestrel.core.http2limits.initialconnectionwindowsize?view=aspnetcore-5.0).
+
+| Format               | Syntax |
+| :------------------- | :----- |
+| Command line         | `--kestrel-initial-connection-window-size` |
+| YAML                 | `KestrelInitialConnectionWindowSize` |
+| Environment variable | `KESTREL_INITIAL_CONNECTION_WINDOW_SIZE` |
+
+**Default**: `131072 * 1024`
+
+### Http2 InitialStreamWindowSize
+
+Sets how much request body data the server is willing to receive and buffer at a time per stream. Note connections are also limited by `KestrelInitialConnectionWindowSize`
+
+Value must be greater than or equal to 65,535 and less than 2^31. See the docs [here](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.server.kestrel.core.http2limits.initialstreamwindowsize?view=aspnetcore-5.0).
+
+| Format               | Syntax |
+| :------------------- | :----- |
+| Command line         | `--kestrel-initial-stream-window-size` |
+| YAML                 | `KestrelInitialStreamWindowSize` |
+| Environment variable | `KESTREL_INITIAL_STREAM_WINDOW_SIZE` |
+
+**Default**: `98304 * 1024`

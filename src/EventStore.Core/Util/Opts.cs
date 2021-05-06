@@ -408,6 +408,19 @@ namespace EventStore.Core.Util {
 
 		public const string KeepAliveTimeoutDescr = "Controls the amount of time (in milliseconds) the sender of the keepalive ping waits for an acknowledgement. If it does not receive an acknowledgment within this time, it will close the connection.";
 		public const int KeepAliveTimeoutDefault = 10000;
+
+		public const string KestrelMaxConcurrentConnectionsDescr = "Sets the maximum number of open connections.";
+		public const long KestrelMaxConcurrentConnectionsDefault = 5000;
+
+		public const string KestrelMaxConcurrentUpgradedConnectionsDescr = "Sets the maximum number of open, upgraded connections. An upgraded connection is one that has been switched from HTTP to another protocol, such as WebSockets.";
+		public const long KestrelMaxConcurrentUpgradedConnectionsDefault = 5000;
+
+		public const string KestrelInitialConnectionWindowSizeDescr = "Sets how much request body data the server is willing to receive and buffer at a time aggregated across all requests (streams) per connection. Note requests are also limited by InitialStreamWindowSize";
+		public const int KestrelInitialConnectionWindowSizeDefault = 131072 * 1024;
+
+		public const string KestrelInitialStreamWindowSizeDescr = "Sets how much request body data the server is willing to receive and buffer at a time per stream. Note connections are also limited by InitialConnectionWindowSize";
+		public const int KestrelInitialStreamWindowSizeDefault = 98304 * 1024;
+
 		/*
 		 * Scavenge options
 		 */
