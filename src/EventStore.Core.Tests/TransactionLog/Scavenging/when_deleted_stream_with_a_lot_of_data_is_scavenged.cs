@@ -35,7 +35,8 @@ namespace EventStore.Core.Tests.TransactionLog.Scavenging {
 		}
 	}
 
-	[TestFixture]
+	[TestFixture(typeof(LogFormat.V2), typeof(string))]
+	[TestFixture(typeof(LogFormat.V3), typeof(long))]
 	public class when_deleted_stream_with_a_lot_of_data_is_scavenged_with_ingore_harddelete<TLogFormat, TStreamId> : ScavengeTestScenario<TLogFormat, TStreamId> {
 		protected override bool UnsafeIgnoreHardDelete() {
 			return true;

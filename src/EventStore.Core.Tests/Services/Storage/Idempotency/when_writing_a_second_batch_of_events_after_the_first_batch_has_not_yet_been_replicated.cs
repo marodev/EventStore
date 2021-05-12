@@ -5,7 +5,8 @@ using EventStore.Core.Services.Storage.ReaderIndex;
 using NUnit.Framework;
 
 namespace EventStore.Core.Tests.Services.Storage.Idempotency {
-	[TestFixture]
+	[TestFixture(typeof(LogFormat.V2), typeof(string))]
+	[TestFixture(typeof(LogFormat.V3), typeof(long))]
 	public class when_writing_a_second_batch_of_events_after_the_first_batch_has_not_yet_been_replicated<TLogFormat, TStreamId> : WriteEventsToIndexScenario<TLogFormat, TStreamId>{
 		private const int _numEvents = 10;
 		private List<Guid> _eventIds = new List<Guid>();

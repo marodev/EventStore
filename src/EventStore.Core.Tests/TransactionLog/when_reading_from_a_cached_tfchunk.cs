@@ -5,7 +5,8 @@ using EventStore.Core.TransactionLog.LogRecords;
 using NUnit.Framework;
 
 namespace EventStore.Core.Tests.TransactionLog {
-	[TestFixture]
+	[TestFixture(typeof(LogFormat.V2), typeof(string))]
+	[TestFixture(typeof(LogFormat.V3), typeof(long))]
 	public class when_reading_from_a_cached_tfchunk<TLogFormat, TStreamId> : SpecificationWithFilePerTestFixture {
 		private TFChunk _chunk;
 		private readonly Guid _corrId = Guid.NewGuid();
