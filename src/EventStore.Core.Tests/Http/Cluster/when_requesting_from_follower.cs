@@ -70,6 +70,7 @@ namespace EventStore.Core.Tests.Http.Cluster {
 		}
 
 		[Test]
+		[Retry(5)]
 		public async Task read_from_stream_backward_should_succeed_when_leader_not_required() {
 			var path = $"streams/{TestStream}";
 			var response = await ReadStream(_followerEndPoint, path, requireLeader: false);
