@@ -114,7 +114,7 @@ namespace EventStore.Core.Tests.XUnit.LogAbstraction {
 			Assert.True(GetOrAddId(_stream, out var streamId, out _, out _));
 			Assert.Equal(_numStreams, _mockIndexReader.Count);
 			Assert.Equal(_streamId, streamId);
-			Assert.Equal(_streamId, _sut.StreamIds.LookupId(_stream));
+			Assert.Equal(_streamId, _sut.StreamIds.LookupValue(_stream));
 			Assert.Equal(_stream, _sut.StreamNames.LookupName(_streamId));
 			Assert.False(_sut.SystemStreams.IsMetaStream(streamId));
 			Assert.False(_sut.SystemStreams.IsSystemStream(streamId));
@@ -127,7 +127,7 @@ namespace EventStore.Core.Tests.XUnit.LogAbstraction {
 			Assert.True(GetOrAddId(metaStreamName, out var streamId, out _, out _));
 			Assert.Equal(_numStreams, _mockIndexReader.Count);
 			Assert.Equal(expectedMetaStreamId, streamId);
-			Assert.Equal(expectedMetaStreamId, _sut.StreamIds.LookupId(metaStreamName));
+			Assert.Equal(expectedMetaStreamId, _sut.StreamIds.LookupValue(metaStreamName));
 			Assert.Equal(metaStreamName, _sut.StreamNames.LookupName(expectedMetaStreamId));
 			Assert.True(_sut.SystemStreams.IsMetaStream(streamId));
 			Assert.True(_sut.SystemStreams.IsSystemStream(streamId));
@@ -138,7 +138,7 @@ namespace EventStore.Core.Tests.XUnit.LogAbstraction {
 			Assert.True(GetOrAddId(_systemStream, out var streamId, out _, out _));
 			Assert.Equal(_numStreams, _mockIndexReader.Count);
 			Assert.Equal(_systemStreamId, streamId);
-			Assert.Equal(_systemStreamId, _sut.StreamIds.LookupId(_systemStream));
+			Assert.Equal(_systemStreamId, _sut.StreamIds.LookupValue(_systemStream));
 			Assert.Equal(_systemStream, _sut.StreamNames.LookupName(_systemStreamId));
 			Assert.False(_sut.SystemStreams.IsMetaStream(streamId));
 			Assert.True(_sut.SystemStreams.IsSystemStream(streamId));
@@ -151,7 +151,7 @@ namespace EventStore.Core.Tests.XUnit.LogAbstraction {
 			Assert.True(GetOrAddId(metaStreamName, out var streamId, out _, out _));
 			Assert.Equal(_numStreams, _mockIndexReader.Count);
 			Assert.Equal(expectedMetaStreamId, streamId);
-			Assert.Equal(expectedMetaStreamId, _sut.StreamIds.LookupId(metaStreamName));
+			Assert.Equal(expectedMetaStreamId, _sut.StreamIds.LookupValue(metaStreamName));
 			Assert.Equal(metaStreamName, _sut.StreamNames.LookupName(expectedMetaStreamId));
 			Assert.True(_sut.SystemStreams.IsMetaStream(streamId));
 			Assert.True(_sut.SystemStreams.IsSystemStream(streamId));
@@ -165,7 +165,7 @@ namespace EventStore.Core.Tests.XUnit.LogAbstraction {
 			Assert.True(GetOrAddId(name, out var streamId, out _, out _));
 			Assert.Equal(_numStreams, _mockIndexReader.Count);
 			Assert.Equal(expectedId, streamId);
-			Assert.Equal(expectedId, _sut.StreamIds.LookupId(name));
+			Assert.Equal(expectedId, _sut.StreamIds.LookupValue(name));
 			Assert.Equal(name, _sut.StreamNames.LookupName(expectedId));
 			Assert.False(_sut.SystemStreams.IsMetaStream(streamId));
 			Assert.True(_sut.SystemStreams.IsSystemStream(streamId));
@@ -176,7 +176,7 @@ namespace EventStore.Core.Tests.XUnit.LogAbstraction {
 			Assert.True(GetOrAddId("$$$all", out var streamId, out _, out _));
 			Assert.Equal(_numStreams, _mockIndexReader.Count);
 			Assert.Equal(5, streamId);
-			Assert.Equal(5, _sut.StreamIds.LookupId("$$$all"));
+			Assert.Equal(5, _sut.StreamIds.LookupValue("$$$all"));
 			Assert.Equal("$$$all", _sut.StreamNames.LookupName(5));
 			Assert.True(_sut.SystemStreams.IsMetaStream(streamId));
 			Assert.True(_sut.SystemStreams.IsSystemStream(streamId));
@@ -188,7 +188,7 @@ namespace EventStore.Core.Tests.XUnit.LogAbstraction {
 		[InlineData(LogV3SystemStreams.NoSystemStream, false, true, "$new-system-stream")]
 		[InlineData(LogV3SystemStreams.NoSystemMetastream, true, true, "$$$new-system-stream")]
 		public void can_attempt_to_lookup_non_existent_streams(long expectedId, bool expectedIsMeta, bool expectedIsSystem, string name) {
-			Assert.Equal(expectedId, _sut.StreamIds.LookupId(name));
+			Assert.Equal(expectedId, _sut.StreamIds.LookupValue(name));
 			Assert.Equal(expectedIsMeta, _sut.SystemStreams.IsMetaStream(expectedId));
 			Assert.Equal(expectedIsSystem, _sut.SystemStreams.IsSystemStream(expectedId));
 		}

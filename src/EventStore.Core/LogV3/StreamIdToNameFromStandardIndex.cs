@@ -4,7 +4,7 @@ using EventStore.Core.Services.Storage.ReaderIndex;
 using EventStore.Core.TransactionLog.LogRecords;
 
 namespace EventStore.Core.LogV3 {
-	public class StreamIdToNameFromStandardIndex : IStreamNameLookup<long> {
+	public class StreamIdToNameFromStandardIndex : INameLookup<long> {
 		private readonly IIndexReader<long> _indexReader;
 
 		public StreamIdToNameFromStandardIndex(IIndexReader<long> indexReader) {
@@ -18,6 +18,9 @@ namespace EventStore.Core.LogV3 {
 			// we divided by two when calculating the position in the stream, since we dont
 			// explicitly create metastreams.
 			var record = _indexReader.ReadPrepare(LogV3SystemStreams.StreamsCreatedStreamNumber, streamId / 2);
+
+			if (record is null)
+				return null;
 
 			if (record is not LogV3StreamRecord streamRecord)
 				throw new Exception($"Unexpected log record type: {record}.");

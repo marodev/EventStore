@@ -24,7 +24,7 @@ namespace EventStore.Core.LogAbstraction {
 		}
 
 		public static LogFormatAbstractor<long> CreateV3() {
-			var logV3StreamNameIndex = new InMemoryStreamNameIndex();
+			var logV3StreamNameIndex = new InMemoryNameIndex(LogV3SystemStreams.FirstRealStream);
 			var metastreams = new LogV3Metastreams();
 			return new LogFormatAbstractor<long>(
 				lowHasher: new IdentityLowHasher(),
@@ -32,7 +32,7 @@ namespace EventStore.Core.LogAbstraction {
 				streamNameIndex: new StreamNameIndexMetastreamDecorator(logV3StreamNameIndex, metastreams),
 				streamIds: new StreamIdLookupMetastreamDecorator(logV3StreamNameIndex, metastreams),
 				streamNamesProvider: new AdHocStreamNamesProvider<long>(indexReader => {
-					IStreamNameLookup<long> streamNames = new StreamIdToNameFromStandardIndex(indexReader);
+					INameLookup<long> streamNames = new StreamIdToNameFromStandardIndex(indexReader);
 					var systemStreams = new LogV3SystemStreams(metastreams, streamNames);
 					streamNames = new StreamNameLookupMetastreamDecorator(streamNames, metastreams);
 					return (systemStreams, streamNames);
@@ -49,8 +49,8 @@ namespace EventStore.Core.LogAbstraction {
 		public LogFormatAbstractor(
 			IHasher<TStreamId> lowHasher,
 			IHasher<TStreamId> highHasher,
-			IStreamNameIndex<TStreamId> streamNameIndex,
-			IStreamIdLookup<TStreamId> streamIds,
+			INameIndex<TStreamId> streamNameIndex,
+			IValueLookup<TStreamId> streamIds,
 			IStreamNamesProvider<TStreamId> streamNamesProvider,
 			IValidator<TStreamId> streamIdValidator,
 			TStreamId emptyStreamId,
@@ -72,15 +72,15 @@ namespace EventStore.Core.LogAbstraction {
 
 		public IHasher<TStreamId> LowHasher { get; }
 		public IHasher<TStreamId> HighHasher { get; }
-		public IStreamNameIndex<TStreamId> StreamNameIndex { get; }
-		public IStreamIdLookup<TStreamId> StreamIds { get; }
+		public INameIndex<TStreamId> StreamNameIndex { get; }
+		public IValueLookup<TStreamId> StreamIds { get; }
 		public IStreamNamesProvider<TStreamId> StreamNamesProvider { get; }
 		public IValidator<TStreamId> StreamIdValidator { get; }
 		public TStreamId EmptyStreamId { get; }
 		public ISizer<TStreamId> StreamIdSizer { get; }
 		public IRecordFactory<TStreamId> RecordFactory { get; }
 
-		public IStreamNameLookup<TStreamId> StreamNames => StreamNamesProvider.StreamNames;
+		public INameLookup<TStreamId> StreamNames => StreamNamesProvider.StreamNames;
 		public ISystemStreamLookup<TStreamId> SystemStreams => StreamNamesProvider.SystemStreams;
 		public bool SupportsExplicitTransactions { get; }
 	}

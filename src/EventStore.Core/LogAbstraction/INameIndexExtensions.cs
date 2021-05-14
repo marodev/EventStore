@@ -2,17 +2,18 @@
 using EventStore.Core.TransactionLog.LogRecords;
 
 namespace EventStore.Core.LogAbstraction {
-	public static class IStreamNameIndexExtensions {
-		// Generates a StreamRecord if necessary
+	public static class INameIndexExtensions {
+		// todo: rename to GetOrAddStream when we generalise to EventTypes too.
+		/// Generates a StreamRecord if necessary
 		public static void GetOrAddId<TStreamId>(
-			this IStreamNameIndex<TStreamId> streamNameIndex,
+			this INameIndex<TStreamId> streamNameIndex,
 			IRecordFactory<TStreamId> recordFactory,
 			string streamName,
 			long logPosition,
 			out TStreamId streamId,
 			out IPrepareLogRecord<TStreamId> streamRecord) {
 
-			var preExisting = streamNameIndex.GetOrAddId(streamName, out streamId, out var createdId, out var createdName);
+			var preExisting = streamNameIndex.GetOrAddId(streamName, out streamId, out var addedId, out var addedName);
 
 			var appendNewStream = recordFactory.ExplicitStreamCreation && !preExisting;
 			if (!appendNewStream) {
@@ -24,8 +25,8 @@ namespace EventStore.Core.LogAbstraction {
 				streamId: Guid.NewGuid(),
 				logPosition: logPosition,
 				timeStamp: DateTime.UtcNow,
-				streamNumber: createdId,
-				streamName: createdName);
+				streamNumber: addedId,
+				streamName: addedName);
 		}
 	}
 }

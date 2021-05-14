@@ -3,11 +3,14 @@ using EventStore.Core.LogAbstraction;
 
 namespace EventStore.Core.LogV2 {
 	public class LogV2StreamNameIndex :
-		IStreamNameIndex<string>,
-		IStreamIdLookup<string>,
-		IStreamNameLookup<string> {
+		INameIndex<string>,
+		IValueLookup<string>,
+		INameLookup<string> {
 
 		public LogV2StreamNameIndex() {
+		}
+
+		public void Init(INameIndexSource<string> source) {
 		}
 
 		public bool GetOrAddId(string streamName, out string streamId, out string createdId, out string createdName) {
@@ -18,7 +21,7 @@ namespace EventStore.Core.LogV2 {
 			return true;
 		}
 
-		public string LookupId(string streamName) => streamName;
-		public string LookupName(string streamId) => streamId;
+		public string LookupValue(string streamName) => streamName;
+		public string LookupName(string streamName) => streamName;
 	}
 }

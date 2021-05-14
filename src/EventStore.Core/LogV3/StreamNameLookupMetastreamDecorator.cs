@@ -3,12 +3,12 @@ using EventStore.Core.Services;
 
 namespace EventStore.Core.LogV3 {
 	// Decorates a StreamNameLookup, intercepting Metastream (and VirtualStream) calls
-	public class StreamNameLookupMetastreamDecorator : IStreamNameLookup<long> {
-		private readonly IStreamNameLookup<long> _wrapped;
+	public class StreamNameLookupMetastreamDecorator : INameLookup<long> {
+		private readonly INameLookup<long> _wrapped;
 		private readonly IMetastreamLookup<long> _metastreams;
 
 		public StreamNameLookupMetastreamDecorator(
-			IStreamNameLookup<long> wrapped,
+			INameLookup<long> wrapped,
 			IMetastreamLookup<long> metastreams) {
 
 			_wrapped = wrapped;

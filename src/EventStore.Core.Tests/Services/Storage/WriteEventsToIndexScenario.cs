@@ -19,8 +19,8 @@ namespace EventStore.Core.Tests.Services.Storage {
 		protected ITransactionFileReader _tfReader;
 		protected ITableIndex<TStreamId> _tableIndex;
 		protected IIndexBackend<TStreamId> _indexBackend;
-		protected IStreamIdLookup<TStreamId> _streamIds;
-		protected IStreamNameLookup<TStreamId> _streamNames;
+		protected IValueLookup<TStreamId> _streamIds;
+		protected INameLookup<TStreamId> _streamNames;
 		protected ISystemStreamLookup<TStreamId> _systemStreams;
 		protected IStreamNamesProvider<TStreamId> _factory;
 		protected IValidator<TStreamId> _validator;

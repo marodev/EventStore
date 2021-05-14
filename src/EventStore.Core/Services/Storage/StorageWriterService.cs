@@ -10,6 +10,7 @@ using EventStore.Common.Utils;
 using EventStore.Core.Bus;
 using EventStore.Core.Data;
 using EventStore.Core.LogAbstraction;
+using EventStore.Core.LogV3;
 using EventStore.Core.Messages;
 using EventStore.Core.Messaging;
 using EventStore.Core.Services.Histograms;
@@ -47,7 +48,7 @@ namespace EventStore.Core.Services.Storage {
 		protected readonly TFChunkWriter Writer;
 		private readonly IIndexWriter<TStreamId> _indexWriter;
 		private readonly IRecordFactory<TStreamId> _recordFactory;
-		private readonly IStreamNameIndex<TStreamId> _streamNameIndex;
+		private readonly INameIndex<TStreamId> _streamNameIndex;
 		private readonly ISystemStreamLookup<TStreamId> _systemStreams;
 		protected readonly IEpochManager EpochManager;
 
@@ -89,7 +90,7 @@ namespace EventStore.Core.Services.Storage {
 			TFChunkWriter writer,
 			IIndexWriter<TStreamId> indexWriter,
 			IRecordFactory<TStreamId> recordFactory,
-			IStreamNameIndex<TStreamId> streamNameIndex,
+			INameIndex<TStreamId> streamNameIndex,
 			ISystemStreamLookup<TStreamId> systemStreams,
 			IEpochManager epochManager,
 			QueueStatsManager queueStatsManager) {

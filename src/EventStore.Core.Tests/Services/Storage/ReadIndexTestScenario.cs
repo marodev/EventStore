@@ -31,7 +31,7 @@ namespace EventStore.Core.Tests.Services.Storage {
 		protected readonly byte IndexBitnessVersion;
 		protected readonly LogFormatAbstractor<TStreamId> _logFormat = LogFormatHelper<TLogFormat, TStreamId>.LogFormat;
 		protected readonly IRecordFactory<TStreamId> _recordFactory = LogFormatHelper<TLogFormat, TStreamId>.LogFormat.RecordFactory;
-		protected readonly IStreamNameIndex<TStreamId> _streamNameIndex = LogFormatHelper<TLogFormat, TStreamId>.LogFormat.StreamNameIndex;
+		protected readonly INameIndex<TStreamId> _streamNameIndex = LogFormatHelper<TLogFormat, TStreamId>.LogFormat.StreamNameIndex;
 		protected TableIndex<TStreamId> TableIndex;
 		protected ITestReadIndex<TStreamId> ReadIndex;
 

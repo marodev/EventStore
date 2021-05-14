@@ -6,7 +6,7 @@ using EventStore.Core.Services.Storage.ReaderIndex;
 namespace EventStore.Core.Tests.Services {
 	//interface that wraps an IReadIndex and IStreamNameIndex to be able to create stream IDs on the fly if they do
 	//not exist yet mainly to facilitate conversion of existing LogV2 tests.
-	public interface ITestReadIndex<TStreamId> : IReadIndex<TStreamId>, IStreamNameIndex<TStreamId> {
+	public interface ITestReadIndex<TStreamId> : IReadIndex<TStreamId>, INameIndex<TStreamId> {
 		public IndexReadEventResult ReadEvent(string streamName, long eventNumber);
 		public IndexReadStreamResult ReadStreamEventsBackward(string streamName, long fromEventNumber, int maxCount);
 		public IndexReadStreamResult ReadStreamEventsForward(string streamName, long fromEventNumber, int maxCount);
@@ -19,10 +19,10 @@ namespace EventStore.Core.Tests.Services {
 
 	public class TestReadIndex<TStreamId> : ITestReadIndex<TStreamId> {
 		private IReadIndex<TStreamId> _readIndex;
-		private IStreamNameIndex<TStreamId> _streamNameIndex;
+		private INameIndex<TStreamId> _streamNameIndex;
 
 		public TestReadIndex(IReadIndex<TStreamId> readIndex,
-			IStreamNameIndex<TStreamId> streamNameIndex) {
+			INameIndex<TStreamId> streamNameIndex) {
 			_readIndex = readIndex;
 			_streamNameIndex = streamNameIndex;
 		}
@@ -71,5 +71,6 @@ namespace EventStore.Core.Tests.Services {
 		public StreamMetadata GetStreamMetadata(string streamName) => _readIndex.GetStreamMetadata(GetOrAddStreamId(streamName));
 		public StorageMessage.EffectiveAcl GetEffectiveAcl(string streamName) => _readIndex.GetEffectiveAcl(GetOrAddStreamId(streamName));
 		public string GetStreamName(string streamName) => _readIndex.GetStreamName(GetOrAddStreamId(streamName));
+		public void Init(INameIndexSource<TStreamId> source) => throw new System.NotImplementedException();
 	}
 }

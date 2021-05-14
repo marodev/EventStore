@@ -31,13 +31,13 @@ namespace EventStore.Core.Services.Storage.ReaderIndex {
 		private readonly IIndexWriter<TStreamId> _indexWriter;
 		private readonly IIndexCommitter<TStreamId> _indexCommitter;
 		private readonly IAllReader _allReader;
-		private readonly IStreamIdLookup<TStreamId> _streamIds;
-		private readonly IStreamNameLookup<TStreamId> _streamNames;
+		private readonly IValueLookup<TStreamId> _streamIds;
+		private readonly INameLookup<TStreamId> _streamNames;
 
 		public ReadIndex(IPublisher bus,
 			ObjectPool<ITransactionFileReader> readerPool,
 			ITableIndex<TStreamId> tableIndex,
-			IStreamIdLookup<TStreamId> streamIds,
+			IValueLookup<TStreamId> streamIds,
 			IStreamNamesProvider<TStreamId> streamNamesProvider,
 			TStreamId emptyStreamName,
 			IValidator<TStreamId> streamIdValidator,
@@ -90,7 +90,7 @@ namespace EventStore.Core.Services.Storage.ReaderIndex {
 		}
 
 		TStreamId IReadIndex<TStreamId>.GetStreamId(string streamName) {
-			return _streamIds.LookupId(streamName);
+			return _streamIds.LookupValue(streamName);
 		}
 
 		string IReadIndex<TStreamId>.GetStreamName(TStreamId streamId) {

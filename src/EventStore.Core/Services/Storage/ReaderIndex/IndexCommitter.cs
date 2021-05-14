@@ -40,7 +40,7 @@ namespace EventStore.Core.Services.Storage.ReaderIndex {
 		private readonly IIndexBackend<TStreamId> _backend;
 		private readonly IIndexReader<TStreamId> _indexReader;
 		private readonly ITableIndex<TStreamId> _tableIndex;
-		private readonly IStreamNameLookup<TStreamId> _streamNames;
+		private readonly INameLookup<TStreamId> _streamNames;
 		private readonly ISystemStreamLookup<TStreamId> _systemStreams;
 		private readonly bool _additionalCommitChecks;
 		private long _persistedPreparePos = -1;
@@ -53,7 +53,7 @@ namespace EventStore.Core.Services.Storage.ReaderIndex {
 			IIndexBackend<TStreamId> backend,
 			IIndexReader<TStreamId> indexReader,
 			ITableIndex<TStreamId> tableIndex,
-			IStreamNameLookup<TStreamId> streamNames,
+			INameLookup<TStreamId> streamNames,
 			ISystemStreamLookup<TStreamId> systemStreams,
 			ICheckpoint indexChk,
 			bool additionalCommitChecks) {

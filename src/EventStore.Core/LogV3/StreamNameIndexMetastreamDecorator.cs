@@ -4,16 +4,20 @@ using EventStore.Core.Services;
 
 namespace EventStore.Core.LogV3 {
 	// Decorates a StreamNameIndex, intercepting Metastream (and VirtualStream) calls
-	public class StreamNameIndexMetastreamDecorator : IStreamNameIndex<long> {
-		private readonly IStreamNameIndex<long> _wrapped;
+	public class StreamNameIndexMetastreamDecorator : INameIndex<long> {
+		private readonly INameIndex<long> _wrapped;
 		private readonly IMetastreamLookup<long> _metastreams;
 
 		public StreamNameIndexMetastreamDecorator(
-			IStreamNameIndex<long> wrapped,
+			INameIndex<long> wrapped,
 			IMetastreamLookup<long> metastreams) {
 
 			_wrapped = wrapped;
 			_metastreams = metastreams;
+		}
+
+		public void Init(INameIndexSource<long> source) {
+			_wrapped.Init(source);
 		}
 
 		public bool GetOrAddId(string streamName, out long streamId, out long createdId, out string createdName) {
